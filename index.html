@@ -1,145 +1,157 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>strxanger</title>
-    <meta content="strxanger.cc" property="og:title" />
-    <meta content="strxanger#0001"="og:description" />
-    <meta content="https://strxanger.cc/" property="og:url" />
-    <meta content="https://cdn.discordapp.com/avatars/405983910753730571/a_778723487c7df91eac978f88d11612d9.gif?size=1024" property="og:image" />
-    <meta content="#800c04" data-react-helmet="true" name="theme-color" />
-         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-         <script src="https://kit.fontawesome.com/6dbcb3829c.js" crossorigin="anonymous"></script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
-         <link rel="shortcut icon" href="favicon.ico">
-             <link rel="shortcut icon" href="bg.gif">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width 1280, initial-scale=1">
+	<title>Strxanger</title>
+    <link rel="icon" href="" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="//fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <script src="ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var TxtType = function(el, toRotate, period) {
+            this.toRotate = toRotate;
+            this.el = el;
+            this.loopNum = 0;
+            this.period = parseInt(period, 10) || 2000;
+            this.txt = '';
+            this.tick();
+            this.isDeleting = false;
+        };
+        TxtType.prototype.tick = function() {
+            var i = this.loopNum % this.toRotate.length;
+            var fullTxt = this.toRotate[i];
+            if (this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+            this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+            var that = this;
+            var delta = 200 - 100;
+            if (this.isDeleting) {
+                delta /= 2;
+            }
+            if (!this.isDeleting && this.txt === fullTxt) {
+                delta = this.period;
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum++;
+                delta = 500;
+            }
+            setTimeout(function() {
+                that.tick();
+            }, delta);
+        };
+        window.onload = function() {
+            var elements = document.getElementsByClassName('typewrite');
+            for (var i = 0; i < elements.length; i++) {
+                var toRotate = elements[i].getAttribute('data-type');
+                var period = elements[i].getAttribute('data-period');
+                if (toRotate) {
+                    new TxtType(elements[i], JSON.parse(toRotate), period);
+                }
+            }
+            var css = document.createElement("style");
+            css.type = "text/css";
+            css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+            document.body.appendChild(css);
+        };
+    </script>
     <style>
-
-@import url('http://fonts.cdnfonts.com/css/akira-expanded');wght@300&family=Oswald&display=swap');
-    
-body {
-  background-color: black;
- 
-}
-#hero img {
-    height: 100vh;
-    width: 100%;
-    background-position: absolute;
-    z-index: 10;
-    object-fit: cover;
-}
-
-#hero .content {
-    background: rgba(0,0,0,0.3);
-    height: 100%;
-    width: 100%;
-    z-index:20;
-    position:absolute;
-    top:0;
-    left:0;
-}
-
-.switch {
-    position:absolute;
-    display: inline-block;
-    width: 60px;
-    height:34px;
-    left: 5%;
-    top:3%;
-}
-
-.switch input {
-    opacity:0;
-    width:0;
-    height:0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left:0;
-    right:0;
-    bottom:0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-}
-
-.slider:before{
-    position: absolute;
-    content: "";
-    height: 26px;
-    width:26px ;
-    left:4px;
-    bottom: 4px;
-    background-color: black;
-    -webkit-transition: .4s;
-}
-
-input:checked + .slider {
-    background-color: black;
-}
-
-input:focus + .slider{
-    box-shadow: 0 0 20px #000000;
-}
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
-.slider.round{
-    border-radius: 34px;
-}
-.slider.round:before {
-    border-radius: 50%;
-}
-
-
-@import url('http://fonts.cdnfonts.com/css/akira-expanded');wght@300&family=Oswald&display=swap');        
-#center {
-font-family: 'Akira Expanded', sans-serif; 
-}
-
-#button-text {
-font-family: 'Akira Expanded', sans-serif;
-}
-
-#block {
-  margin-left: 3px;
-  margin-right:3px;
-}
-
-
+        @import url("//fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap");
+        body {
+            margin: 0 auto;
+            background: rgb(30, 30, 30);
+            background: linear-gradient(90deg, rgba(30, 30, 30, 1) 0%, rgba(25, 25, 25, 1) 33.3%, rgba(20, 20, 20, 1) 66.6%, rgba(15, 10, 10, 1) 100%);
+            color: #fff;
+            font-family: "Nunito";
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            position: relative;
+            text-align: center;
+        }
+        .title a {
+            color: #fff;
+            position: relative;
+        }
+        .main {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .title a::before {
+            position: absolute;
+            content: attr(data-text);
+            text-shadow: 0px 0px 20px var(--var-color);
+            filter: blur(10px) brightness(0);
+            animation: flicker 2s infinite;
+        }
+        @keyframes flicker {
+            0% {
+                filter: blur(5px) brightness(1);
+            }
+            3% {
+                filter: blur(5px) brightness(0);
+            }
+            6% {
+                filter: blur(5px) brightness(0);
+            }
+            7% {
+                filter: blur(5px) brightness(1);
+            }
+            8% {
+                filter: blur(5px) brightness(0);
+            }
+            9% {
+                filter: blur(5px) brightness(1);
+            }
+            10% {
+                filter: blur(5px) brightness(0);
+            }
+            20% {
+                filter: blur(5px) brightness(1);
+            }
+            50% {
+                filter: blur(5px) brightness(1);
+            }
+            99% {
+                filter: blur(5px) brightness(0);
+            }
+            100% {
+                filter: blur(5px) brightness(1);
+            }
+        }
     </style>
-
-
 </head>
 <body>
-
-
-
-<div id='hero'>
-
-
-<img class="giphy" src="bg.gif">
-
-<div class ="content d-flex align-items-center">
-
-  <div id= "center" class ="container text-center">
-    
-    <h1 style="color:Black; padding-bottom: 6px"> Strxanger </h1> 
-
-    <span class="icons">
-        <span id="block">
-            <a style="color: Black;" href="https://discord.gg/raid"><i class="fab fa-discord fa-2x" ></i></a>
-        </span>
-        <span id="block">
-            <a style="color: Black;" href="https://github.com/strxangerlol"><i class="fab fa-github fa-2x"></i></a>
-        </span>
-
-    </span>
-
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-
-
-</body>
-</html>
+</label>
+    </div>
+    <div class="main rainx">
+        <label class="title">
+<a id="flicker" data-text="Strxanger" style="color: #701CCE;">Strxanger</a>
+<br>
+<a class="typewrite" data-period="200" data-type='[  "strxanger is my daddy", "strxanger is so hot i wanna date him", "strxanger is my papa", "discord.gg/raid", "strxanger definitely didnt skid this site", "strxanger#0001 is a sex offender"]' style="font-size: 10px; opacity: 0.5;">strxanger</a>
+</br>
+<a style="font-size: 10px; opacity: 0.75;" >strxanger#0001</a>
+</label>
+    </div>
